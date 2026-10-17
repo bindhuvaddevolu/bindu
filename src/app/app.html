@@ -1,0 +1,31 @@
+
+<app-navbar
+  [cartCount]="cartCount"
+  (wishlistClicked)="openWishlist()">
+</app-navbar>
+
+@if (showWishlist) {
+  <app-wishlist
+    (continueShoppingEvent)="showProducts()"
+    (cartUpdated)="updateCartCount($event)">
+  </app-wishlist>
+} @else if (showCheckout) {
+  <app-checkout
+    (continueShoppingEvent)="showProducts()">
+  </app-checkout>
+} @else {
+  <app-home></app-home>
+
+  <app-categories></app-categories>
+
+  <app-products
+    id="products"
+    (cartUpdated)="updateCartCount($event)">
+  </app-products>
+
+  <app-cart></app-cart>
+
+  <button (click)="openCheckout()">
+    Proceed to Checkout
+  </button>
+}

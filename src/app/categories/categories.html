@@ -1,0 +1,37 @@
+<section class="categories" id="categories">
+
+  <div class="categories-content">
+
+    <p class="section-label">EXPLORE</p>
+
+    <h2>Shop by Category</h2>
+
+    <p class="section-description">
+      Start with what you need and discover something you didn't know you wanted.
+    </p>
+
+    <div class="category-grid">
+
+      @for (category of categoryList; track category.name) {
+
+        <div class="category-card">
+
+          <div class="category-icon">
+            {{ category.icon }}
+          </div>
+
+          <h3>{{ category.name }}</h3>
+
+          <p>{{ category.description }}</p>
+
+          <a href="#">Explore →</a>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+
+</section>

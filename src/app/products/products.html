@@ -1,0 +1,147 @@
+
+<section class="products">
+  <div class="products-content">
+
+    @if (selectedProduct; as product) {
+
+      <!-- Product Details -->
+      <div class="product-details">
+
+        <button
+          type="button"
+          class="back-btn"
+          (click)="backToProducts()">
+          ← Back to Products
+        </button>
+
+        <div class="product-detail-card">
+
+          <img
+            class="detail-image"
+            [src]="product.image"
+            [alt]="product.name">
+
+          <div class="detail-info">
+            <p class="product-category">{{ product.category }}</p>
+            <h2>{{ product.name }}</h2>
+            <p class="detail-rating">⭐ {{ product.rating }}</p>
+            <h3 class="detail-price">₹{{ product.price }}</h3>
+
+            <p>
+              Quality products at great prices.
+              Add this product to your shopping cart!
+            </p>
+
+            <button
+              type="button"
+              class="add-cart-btn"
+              (click)="addToCart(product)">
+              Add to Cart
+            </button>
+
+            <button
+              type="button"
+              class="wishlist-btn"
+              (click)="addToWishlist(product)">
+              {{ isInWishlist(product) ? '❤️ Added to Wishlist' : '♡ Add to Wishlist' }}
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    } @else {
+
+      <!-- Products Listing -->
+      <span class="section-label">OUR COLLECTION</span>
+      <h2 class="section-title">Our Products</h2>
+
+      <p class="section-description">
+        Discover quality products for your everyday needs.
+      </p>
+
+      <!-- Search and Filters -->
+      <div class="product-controls">
+
+        <input
+          type="text"
+          placeholder="Search products..."
+          [(ngModel)]="searchText">
+
+        <select [(ngModel)]="selectedCategory">
+          <option value="All">All Categories</option>
+          <option value="Tech">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Home">Home</option>
+        </select>
+
+        <select [(ngModel)]="sortOption">
+          <option value="default">Sort By</option>
+          <option value="lowToHigh">Price: Low to High</option>
+          <option value="highToLow">Price: High to Low</option>
+          <option value="rating">Highest Rating</option>
+        </select>
+
+      </div>
+
+      <!-- Product Cards -->
+      <div class="product-grid">
+
+        @for (product of filteredProducts; track product.name) {
+
+          <div class="product-card">
+
+            <div class="product-image">
+              <img
+                [src]="product.image"
+                [alt]="product.name">
+            </div>
+
+            <div class="product-info">
+
+              <p class="product-category">
+                {{ product.category }}
+              </p>
+
+              <h3>{{ product.name }}</h3>
+
+              <div class="product-bottom">
+                <strong>₹{{ product.price }}</strong>
+                <span>⭐ {{ product.rating }}</span>
+              </div>
+
+              <button
+                type="button"
+                class="view-btn"
+                (click)="viewProduct(product)">
+                View Details
+              </button>
+
+              <button
+                type="button"
+                class="add-cart-btn"
+                (click)="addToCart(product)">
+                Add to Cart
+              </button>
+
+              <button
+                type="button"
+                class="wishlist-btn"
+                (click)="addToWishlist(product)">
+                {{ isInWishlist(product) ? '❤️ Added to Wishlist' : '♡ Add to Wishlist' }}
+              </button>
+
+            </div>
+          </div>
+
+        } @empty {
+          <p class="no-products">
+            No products found. Try another search.
+          </p>
+        }
+
+      </div>
+    }
+
+  </div>
+</section>

@@ -1,0 +1,88 @@
+
+<section class="checkout-container">
+  <h2>Checkout</h2>
+
+  @if (!orderPlaced) {
+    
+<div class="order-summary">
+  <h3>Order Summary</h3>
+
+  @if (cartItems.length === 0) {
+    <p>Your cart is empty.</p>
+  } @else {
+    @for (item of cartItems; track item.name) {
+      <div class="summary-item">
+        <span>{{ item.name }}</span>
+        <span>{{ item.quantity }} × ₹{{ item.price }}</span>
+        <span>₹{{ item.quantity * item.price }}</span>
+      </div>
+    }
+
+    <h3 class="summary-total">
+      Total Amount: ₹{{ totalPrice }}
+    </h3>
+  }
+</div>
+
+    <form #checkoutForm="ngForm"
+          (ngSubmit)="placeOrder()">
+
+      <label>Full Name</label>
+      <input
+        type="text"
+        name="fullName"
+        [(ngModel)]="fullName"
+        required
+      />
+
+      <label>Mobile Number</label>
+      <input
+        type="tel"
+        name="mobile"
+        [(ngModel)]="mobile"
+        pattern="[0-9]{10}"
+        maxlength="10"
+        required
+      />
+
+      <label>Delivery Address</label>
+      <textarea
+        name="address"
+        [(ngModel)]="address"
+        required
+      ></textarea>
+
+      <label>City</label>
+      <input
+        type="text"
+        name="city"
+        [(ngModel)]="city"
+        required
+      />
+
+      <button
+        type="submit"
+        [disabled]="checkoutForm.invalid">
+        Place Order
+      </button>
+    </form>
+  } @else {
+    <div class="success-message">
+      <h2>✅ Order Placed Successfully!</h2>
+
+      <p>Thank you, {{ fullName }}!</p>
+
+      <p>Your order has been confirmed.</p>
+
+      <p>
+        Order ID:
+        <strong>{{ orderId }}</strong>
+      </p>
+
+      <p>Delivery Address: {{ address }}, {{ city }}</p>
+      <button type="button" (click)="continueShopping()">
+  Continue Shopping
+</button>
+    </div>
+  }
+</section>
